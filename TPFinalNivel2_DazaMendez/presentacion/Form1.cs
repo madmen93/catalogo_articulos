@@ -23,6 +23,10 @@ namespace presentacion
 
         private void frmArticulos_Load(object sender, EventArgs e)
         {
+            cargar();
+        }
+        private void cargar()
+        {
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
@@ -58,6 +62,13 @@ namespace presentacion
         {
             Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
             cargarImagen(seleccionado.UrlImagen);
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmAltaArticulo alta = new frmAltaArticulo();
+            alta.ShowDialog();
+            cargar();
         }
     }
 }
