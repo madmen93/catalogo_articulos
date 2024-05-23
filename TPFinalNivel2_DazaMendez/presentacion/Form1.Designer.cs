@@ -35,6 +35,8 @@
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnDetalles = new System.Windows.Forms.Button();
+            this.lbBusquedaRapida = new System.Windows.Forms.Label();
+            this.tbxBusquedaRapida = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxUrlImagen)).BeginInit();
             this.SuspendLayout();
@@ -116,12 +118,32 @@
             this.btnDetalles.UseVisualStyleBackColor = true;
             this.btnDetalles.Click += new System.EventHandler(this.btnDetalles_Click);
             // 
+            // lbBusquedaRapida
+            // 
+            this.lbBusquedaRapida.AutoSize = true;
+            this.lbBusquedaRapida.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbBusquedaRapida.Location = new System.Drawing.Point(25, 70);
+            this.lbBusquedaRapida.Name = "lbBusquedaRapida";
+            this.lbBusquedaRapida.Size = new System.Drawing.Size(114, 16);
+            this.lbBusquedaRapida.TabIndex = 7;
+            this.lbBusquedaRapida.Text = "Búsqueda rápida:";
+            // 
+            // tbxBusquedaRapida
+            // 
+            this.tbxBusquedaRapida.Location = new System.Drawing.Point(154, 66);
+            this.tbxBusquedaRapida.Name = "tbxBusquedaRapida";
+            this.tbxBusquedaRapida.Size = new System.Drawing.Size(215, 20);
+            this.tbxBusquedaRapida.TabIndex = 8;
+            this.tbxBusquedaRapida.TextChanged += new System.EventHandler(this.tbxBusquedaRapida_TextChanged);
+            // 
             // frmArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(1064, 633);
+            this.Controls.Add(this.tbxBusquedaRapida);
+            this.Controls.Add(this.lbBusquedaRapida);
             this.Controls.Add(this.btnDetalles);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
@@ -151,6 +173,8 @@
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnDetalles;
+        private System.Windows.Forms.Label lbBusquedaRapida;
+        private System.Windows.Forms.TextBox tbxBusquedaRapida;
     }
 }
 

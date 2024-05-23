@@ -61,8 +61,11 @@ namespace presentacion
         }
         private void dgvArticulos_SelectionChanged_1(object sender, EventArgs e)
         {
-            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            cargarImagen(seleccionado.UrlImagen);
+            if(dgvArticulos.CurrentRow != null)
+            {
+                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                cargarImagen(seleccionado.UrlImagen);
+            }
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -110,6 +113,23 @@ namespace presentacion
             frmDetalleArticulo detalle = new frmDetalleArticulo(seleccionado);
             detalle.ShowDialog();
             cargar();
+        }
+
+        private void tbxBusquedaRapida_TextChanged(object sender, EventArgs e)
+        {
+            List<Articulo> listaFiltrada;
+            string filtro = tbxBusquedaRapida.Text;
+            if(filtro.Length >= 3)
+            {
+                listaFiltrada = listaArticulo.FindAll(x => x.Nombre.ToLower().Contains(filtro.ToLower()) || x.Marca.Descripcion.ToLower().Contains(filtro.ToLower()));
+            }
+            else
+            {
+                listaFiltrada = listaArticulo;
+            }
+            dgvArticulos.DataSource = null;
+            dgvArticulos.DataSource = listaFiltrada;
+            ocultarColumnas();
         }
     }
 }
