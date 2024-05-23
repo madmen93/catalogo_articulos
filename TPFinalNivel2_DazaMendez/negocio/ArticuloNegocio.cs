@@ -16,17 +16,20 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("Select Codigo, Nombre, A.Descripcion, M.Descripcion Marca, C.Descripcion Categoria, ImagenUrl, Precio from ARTICULOS A, MARCAS M, CATEGORIAS C where M.Id = A.IdMarca And C.Id = A.IdCategoria");
+                datos.setearConsulta("Select Codigo, Nombre, A.Descripcion, M.Descripcion Marca, C.Descripcion Categoria, A.IdMarca, A.IdCategoria,ImagenUrl, Precio, A.Id from ARTICULOS A, MARCAS M, CATEGORIAS C where M.Id = A.IdMarca And C.Id = A.IdCategoria");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
                     Articulo aux = new Articulo();
+                    aux.Id = (int)datos.Lector["Id"];
                     aux.Codigo = (string)datos.Lector["Codigo"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.Marca = new Marca();
+                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
                     aux.Marca.Descripcion = (string)datos.Lector["Marca"];
                     aux.Categoria = new Categoria();
+                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
                     aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
                     if (!(datos.Lector["ImagenUrl"] is DBNull))
                         aux.UrlImagen = (string)datos.Lector["ImagenUrl"];
@@ -67,6 +70,32 @@ namespace negocio
             }finally 
             { 
                 datos.cerrarConexion(); 
+            }
+        }
+        public void modificar(Articulo modificado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("Update ARTICULOS set Codigo = @cod, Nombre = @nombre, Descripcion = @desc, IdMarca = @idMarca, IdCategoria = @idCate, ImagenUrl  = @img, Precio = @precio where Id = @id");
+                datos.setearParametro("@cod", modificado.Codigo);
+                datos.setearParametro("@nombre", modificado.Nombre);
+                datos.setearParametro("@desc", modificado.Descripcion);
+                datos.setearParametro("@idMarca", modificado.Marca.Id);
+                datos.setearParametro("@idCate", modificado.Categoria.Id);
+                datos.setearParametro("@img", modificado.UrlImagen);
+                datos.setearParametro("@precio", modificado.Precio);
+                datos.setearParametro("@id", modificado.Id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
     }

@@ -95,6 +95,7 @@
             // tbxDescripcion
             // 
             this.tbxDescripcion.Location = new System.Drawing.Point(119, 135);
+            this.tbxDescripcion.MaxLength = 100000;
             this.tbxDescripcion.Multiline = true;
             this.tbxDescripcion.Name = "tbxDescripcion";
             this.tbxDescripcion.Size = new System.Drawing.Size(288, 100);

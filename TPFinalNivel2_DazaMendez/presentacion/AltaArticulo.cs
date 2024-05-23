@@ -15,11 +15,17 @@ namespace presentacion
 {
     public partial class frmAltaArticulo : Form
     {
+        private Articulo articulo = null;
         public frmAltaArticulo()
         {
             InitializeComponent();
         }
-
+        public frmAltaArticulo(Articulo articulo)
+        {
+            InitializeComponent();
+            this.articulo = articulo;
+            Text = "Modificar artículo";
+        }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -27,10 +33,14 @@ namespace presentacion
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Articulo articulo = new Articulo();
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
+                if(articulo == null)
+                {
+                    articulo = new Articulo();
+
+                }
                 articulo.Codigo = tbxCodigo.Text;
                 articulo.Nombre = tbxNombre.Text;
                 articulo.Descripcion = tbxDescripcion.Text;
@@ -39,8 +49,16 @@ namespace presentacion
                 articulo.UrlImagen = tbxImagen.Text;
                 articulo.Precio = decimal.Parse(tbxPrecio.Text);
 
-                negocio.agregar(articulo);
-                MessageBox.Show("Agregado exitosamente");
+                if(articulo.Id != 0)
+                {
+                    negocio.modificar(articulo);
+                    MessageBox.Show("Modificado exitosamente");
+                }
+                else
+                {
+                    negocio.agregar(articulo);
+                    MessageBox.Show("Agregado exitosamente");
+                }
                 Close();
             }
             catch (Exception ex)
@@ -57,7 +75,23 @@ namespace presentacion
             try
             {
                 cbMarca.DataSource = marcaNegocio.listar();
+                cbMarca.ValueMember = "Id";
+                cbMarca.DisplayMember = "Descripcion";
                 cbCategoria.DataSource = cateNegocio.listar();
+                cbCategoria.ValueMember = "Id";
+                cbCategoria.DisplayMember = "Descripcion";
+
+                if(articulo != null)
+                {
+                    tbxCodigo.Text = articulo.Codigo;
+                    tbxNombre.Text = articulo.Nombre;
+                    tbxDescripcion.Text = articulo.Descripcion;
+                    cbMarca.SelectedValue = articulo.Marca.Id;
+                    cbCategoria.SelectedValue = articulo.Categoria.Id;
+                    tbxImagen.Text = articulo.UrlImagen;
+                    cargarImagen(articulo.UrlImagen);
+                    tbxPrecio.Text = articulo.Precio.ToString();
+                }
             }
             catch (Exception ex)
             {
