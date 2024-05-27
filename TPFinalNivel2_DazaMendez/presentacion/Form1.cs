@@ -23,7 +23,15 @@ namespace presentacion
 
         private void frmArticulos_Load(object sender, EventArgs e)
         {
+            
             cargar();
+            cbCampo.Items.Add("Código");
+            cbCampo.Items.Add("Nombre");
+            cbCampo.Items.Add("Descripción");
+            cbCampo.Items.Add("Precio");
+            cbTipo.Items.Add("Marca");
+            cbTipo.Items.Add("Categoría");
+            
         }
         private void cargar()
         {
@@ -131,5 +139,73 @@ namespace presentacion
             dgvArticulos.DataSource = listaFiltrada;
             ocultarColumnas();
         }
+
+        private void cbCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string opcion = cbCampo.SelectedItem.ToString();
+            if(opcion == "Precio")
+            {
+                cbCriterio.Items.Clear();
+                cbCriterio.Items.Add("Mayor a");
+                cbCriterio.Items.Add("Menor a");
+                cbCriterio.Items.Add("Igual a");
+            }
+            else
+            {
+                cbCriterio.Items.Clear();
+                cbCriterio.Items.Add("Comienza con");
+                cbCriterio.Items.Add("Termina con");
+                cbCriterio.Items.Add("Contiene");
+            }
+        }
+        private void cbTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            string opcion = cbTipo.SelectedItem.ToString();
+            try
+            {
+                if (opcion == "Marca")
+                {
+                    cbSubtipo.DataSource = marcaNegocio.listar();
+                    cbSubtipo.ValueMember = "Id";
+                    cbSubtipo.DisplayMember = "Descripcion";
+                    cbSubtipo.SelectedItem = null;
+                }else
+                {
+                    cbSubtipo.DataSource = categoriaNegocio.listar();
+                    cbSubtipo.ValueMember = "Id";
+                    cbSubtipo.DisplayMember = "Descripcion";
+                    cbSubtipo.SelectedItem = null;
+                }
+                
+                
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            try
+            {
+                string tipo = cbTipo.SelectedItem.ToString();
+                string subtipo = cbSubtipo.SelectedItem.ToString();
+                string campo = cbCampo.SelectedItem.ToString();
+                string criterio = cbCriterio.SelectedItem.ToString();
+                string filtro = tbxFiltroAvanzado.Text;
+                dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro, tipo, subtipo);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
     }
 }
