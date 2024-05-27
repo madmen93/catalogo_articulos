@@ -10,12 +10,15 @@ using System.Windows.Forms;
 using dominio;
 using negocio;
 using accesoDatos;
+using System.IO;
+using System.Configuration;
 
 namespace presentacion
 {
     public partial class frmAltaArticulo : Form
     {
         private Articulo articulo = null;
+        private OpenFileDialog archivo = null;
         public frmAltaArticulo()
         {
             InitializeComponent();
@@ -59,6 +62,9 @@ namespace presentacion
                     negocio.agregar(articulo);
                     MessageBox.Show("Agregado exitosamente");
                 }
+                if (archivo != null && !(tbxImagen.Text.ToUpper().Contains("HTTP")))
+                     File.Copy(archivo.FileName, ConfigurationManager.AppSettings["images-articulos"] + archivo.SafeFileName);
+
                 Close();
             }
             catch (Exception ex)
@@ -114,6 +120,17 @@ namespace presentacion
             {
 
                 pbImg.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8TrfhVXyRtTKud_EqvLkVVInC76ZdnCz4OwTxOiyXyA&s");
+            }
+        }
+
+        private void btnImagenLocal_Click(object sender, EventArgs e)
+        {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "jpg|*.jpg;|png|*.png";
+            if (archivo.ShowDialog() == DialogResult.OK)
+            {
+                tbxImagen.Text = archivo.FileName;
+                cargarImagen(archivo.FileName);
             }
         }
     }

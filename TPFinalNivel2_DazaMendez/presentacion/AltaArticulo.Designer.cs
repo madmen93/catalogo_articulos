@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAltaArticulo));
             this.lbCodigo = new System.Windows.Forms.Label();
             this.tbxCodigo = new System.Windows.Forms.TextBox();
             this.lbNombre = new System.Windows.Forms.Label();
@@ -45,6 +46,7 @@
             this.pbImg = new System.Windows.Forms.PictureBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnImagenLocal = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbImg)).BeginInit();
             this.SuspendLayout();
             // 
@@ -205,12 +207,23 @@
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
+            // btnImagenLocal
+            // 
+            this.btnImagenLocal.Image = ((System.Drawing.Image)(resources.GetObject("btnImagenLocal.Image")));
+            this.btnImagenLocal.Location = new System.Drawing.Point(413, 332);
+            this.btnImagenLocal.Name = "btnImagenLocal";
+            this.btnImagenLocal.Size = new System.Drawing.Size(31, 23);
+            this.btnImagenLocal.TabIndex = 17;
+            this.btnImagenLocal.UseVisualStyleBackColor = true;
+            this.btnImagenLocal.Click += new System.EventHandler(this.btnImagenLocal_Click);
+            // 
             // frmAltaArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 476);
+            this.Controls.Add(this.btnImagenLocal);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.pbImg);
@@ -257,5 +270,6 @@
         private System.Windows.Forms.PictureBox pbImg;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button btnImagenLocal;
     }
 }
