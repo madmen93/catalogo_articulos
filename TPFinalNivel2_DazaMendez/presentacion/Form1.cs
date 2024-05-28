@@ -187,12 +187,58 @@ namespace presentacion
                 MessageBox.Show(ex.ToString());
             }
         }
+        private bool validarFiltro()
+        {
+            if(cbTipo.SelectedIndex < 0)
+            {
+                MessageBox.Show("Por favor, escoja un tipo para filtrar.");
+                return true;
+            }
+            if(cbSubtipo.SelectedIndex < 0)
+            {
+                MessageBox.Show("Por favor, escoja un subtipo para filtrar.");
+                return true;
+            }
+            if(cbCampo.SelectedIndex < 0)
+            {
+                MessageBox.Show("Por favor, escoja un campo para filtrar");
+                return true;
+            }
+            if(cbCriterio.SelectedIndex < 0)
+            {
+                MessageBox.Show("Por favor, escoja un criterio para filtrar");
+                return true;
+            }
+            if(cbCampo.SelectedItem.ToString() == "Precio")
+            {
+                if (string.IsNullOrEmpty(tbxFiltroAvanzado.Text))
+                {
+                    MessageBox.Show("Debe completar el criterio del precio para filtrar.");
+                    return true;
+                }
+                if (!(soloNumeros(tbxFiltroAvanzado.Text)))
+                {
+                    MessageBox.Show("Solo se admiten números para este criterio.");
+                    return true;
+                }
+            }
+            return false;
+        }
+        private bool soloNumeros(string cadena)
+        {
+            decimal numero = 0;
+            bool canConvert = decimal.TryParse(cadena, out numero);
+            return true;
+        }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
+                if (validarFiltro())
+                    return;
+
                 string tipo = cbTipo.SelectedItem.ToString();
                 string subtipo = cbSubtipo.SelectedItem.ToString();
                 string campo = cbCampo.SelectedItem.ToString();

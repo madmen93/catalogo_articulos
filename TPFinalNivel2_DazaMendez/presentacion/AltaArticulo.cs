@@ -33,7 +33,46 @@ namespace presentacion
         {
             this.Close();
         }
-
+        private bool validarAlta()
+        {
+            if(tbxCodigo.Text == "")
+            {
+                MessageBox.Show("Debe completar el código del artículo para agregar un nuevo artículo.");
+                return true;
+            }
+            if(tbxNombre.Text == "")
+            {
+                MessageBox.Show("Debe completar el nombre del artículo para agregar un nuevo artículo.");
+                return true;
+            }
+            if(cbMarca.SelectedIndex < 0)
+            {
+                MessageBox.Show("Debe escoger una marca para agregar el artículo nuevo.");
+                return true;
+            }
+            if(cbCategoria.SelectedIndex < 0)
+            {
+                MessageBox.Show("Debe escoger una categoría para agregar el artículo nuevo.");
+                return true;
+            }
+            if(tbxPrecio.Text == "")
+            {
+                MessageBox.Show("Debe completar el precio del artículo para agregar un nuevo artículo");
+                return true;
+            }
+            if (!(soloNumeros(tbxPrecio.Text)))
+            {
+                MessageBox.Show("Solo se admiten números en precio.");
+                return true;
+            }
+            return false;
+        }
+        private bool soloNumeros(string cadena)
+        {
+            decimal numero = 0;
+            bool canConvert = decimal.TryParse(cadena, out numero);
+            return true;
+        }
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
@@ -42,8 +81,10 @@ namespace presentacion
                 if(articulo == null)
                 {
                     articulo = new Articulo();
-
                 }
+                if (validarAlta())
+                    return;
+
                 articulo.Codigo = tbxCodigo.Text;
                 articulo.Nombre = tbxNombre.Text;
                 articulo.Descripcion = tbxDescripcion.Text;
@@ -83,9 +124,11 @@ namespace presentacion
                 cbMarca.DataSource = marcaNegocio.listar();
                 cbMarca.ValueMember = "Id";
                 cbMarca.DisplayMember = "Descripcion";
+                cbMarca.SelectedItem = null;
                 cbCategoria.DataSource = cateNegocio.listar();
                 cbCategoria.ValueMember = "Id";
                 cbCategoria.DisplayMember = "Descripcion";
+                cbCategoria.SelectedItem = null;
 
                 if(articulo != null)
                 {
