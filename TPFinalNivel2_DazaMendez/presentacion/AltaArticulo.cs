@@ -93,6 +93,8 @@ namespace presentacion
                 articulo.UrlImagen = tbxImagen.Text;
                 articulo.Precio = decimal.Parse(tbxPrecio.Text);
 
+                if (archivo != null && !(tbxImagen.Text.ToUpper().Contains("HTTP")))
+                     File.Copy(archivo.FileName, ConfigurationManager.AppSettings["images-articulos"] + archivo.SafeFileName);
                 if(articulo.Id != 0)
                 {
                     negocio.modificar(articulo);
@@ -103,10 +105,16 @@ namespace presentacion
                     negocio.agregar(articulo);
                     MessageBox.Show("Agregado exitosamente");
                 }
-                if (archivo != null && !(tbxImagen.Text.ToUpper().Contains("HTTP")))
-                     File.Copy(archivo.FileName, ConfigurationManager.AppSettings["images-articulos"] + archivo.SafeFileName);
 
                 Close();
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                MessageBox.Show("Error en la longitud de los datos ingresados: La 'Descripción' puede contener hasta 150 caracteres y 'Código' y 'Nombre' hasta 50 caracteres.");
+            }
+            catch (System.IO.IOException)
+            {
+                MessageBox.Show("El archivo seleccionado ya existe.");
             }
             catch (Exception ex)
             {
