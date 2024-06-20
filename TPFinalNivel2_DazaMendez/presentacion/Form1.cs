@@ -253,5 +253,9 @@ namespace presentacion
             }
         }
 
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            cargar();
+        }
     }
 }

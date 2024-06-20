@@ -49,6 +49,7 @@
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.lbSubtipo = new System.Windows.Forms.Label();
             this.cbSubtipo = new System.Windows.Forms.ComboBox();
+            this.btnReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxUrlImagen)).BeginInit();
             this.SuspendLayout();
@@ -264,12 +265,24 @@
             this.cbSubtipo.Size = new System.Drawing.Size(121, 21);
             this.cbSubtipo.TabIndex = 20;
             // 
+            // btnReset
+            // 
+            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.Location = new System.Drawing.Point(842, 645);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(105, 29);
+            this.btnReset.TabIndex = 21;
+            this.btnReset.Text = "Reset Filtro";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
             // frmArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(1064, 691);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.cbSubtipo);
             this.Controls.Add(this.lbSubtipo);
             this.Controls.Add(this.cbTipo);
@@ -327,6 +340,7 @@
         private System.Windows.Forms.ComboBox cbTipo;
         private System.Windows.Forms.Label lbSubtipo;
         private System.Windows.Forms.ComboBox cbSubtipo;
+        private System.Windows.Forms.Button btnReset;
     }
 }
 
