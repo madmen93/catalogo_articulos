@@ -71,7 +71,8 @@ namespace presentacion
         {
             decimal numero = 0;
             bool canConvert = decimal.TryParse(cadena, out numero);
-            return true;
+            if(canConvert) return true;
+            else return false;
         }
         private void btnAceptar_Click(object sender, EventArgs e)
         {
