@@ -82,20 +82,34 @@ namespace presentacion
             alta.ShowDialog();
             cargar();
         }
-
+        private bool validarSeleccion()
+        {
+            if(dgvArticulos.CurrentRow == null)
+            {
+                MessageBox.Show("No ha seleccionado ningún artículo.");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            Articulo seleccionado;
-            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            frmAltaArticulo modificar = new frmAltaArticulo(seleccionado);
-            modificar.ShowDialog();
-            cargar();
-            
+                Articulo seleccionado;
+                if(validarSeleccion())
+                    return;
+                seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    frmAltaArticulo modificar = new frmAltaArticulo(seleccionado);
+                    modificar.ShowDialog();
+                    cargar();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
+            if (validarSeleccion())
+                return;
             Articulo seleccionado;
             try
             {
@@ -117,6 +131,8 @@ namespace presentacion
         private void btnDetalles_Click(object sender, EventArgs e)
         {
             Articulo seleccionado;
+            if (validarSeleccion())
+                return;
             seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
             frmDetalleArticulo detalle = new frmDetalleArticulo(seleccionado);
             detalle.ShowDialog();
