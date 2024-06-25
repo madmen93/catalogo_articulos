@@ -74,13 +74,13 @@
             this.dgvArticulos.MultiSelect = false;
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvArticulos.Size = new System.Drawing.Size(715, 376);
+            this.dgvArticulos.Size = new System.Drawing.Size(479, 376);
             this.dgvArticulos.TabIndex = 1;
             this.dgvArticulos.SelectionChanged += new System.EventHandler(this.dgvArticulos_SelectionChanged_1);
             // 
             // pbxUrlImagen
             // 
-            this.pbxUrlImagen.Location = new System.Drawing.Point(781, 108);
+            this.pbxUrlImagen.Location = new System.Drawing.Point(634, 108);
             this.pbxUrlImagen.Name = "pbxUrlImagen";
             this.pbxUrlImagen.Size = new System.Drawing.Size(222, 376);
             this.pbxUrlImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -281,7 +281,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1064, 691);
+            this.ClientSize = new System.Drawing.Size(997, 691);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.cbSubtipo);
             this.Controls.Add(this.lbSubtipo);
