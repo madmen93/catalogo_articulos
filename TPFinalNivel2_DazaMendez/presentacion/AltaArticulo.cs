@@ -35,51 +35,19 @@ namespace presentacion
         }
         private bool validarAlta()
         {
-            if(tbxCodigo.Text == "")
+            if (codigoValido() == false || nombreValido() == false || marcaValida() == false || categoriaValida() == false || precioValido() == false || soloNumeros(tbxPrecio.Text) == false || codigoExtension() == false ||nombreExtension() == false || descripcionExtension() == false)
             {
-                MessageBox.Show("Debe completar el código del artículo para agregar un nuevo artículo.");
-                return true;
-            }
-            if(tbxNombre.Text == "")
-            {
-                MessageBox.Show("Debe completar el nombre del artículo para agregar un nuevo artículo.");
-                return true;
-            }
-            if(cbMarca.SelectedIndex < 0)
-            {
-                MessageBox.Show("Debe escoger una marca para agregar el artículo nuevo.");
-                return true;
-            }
-            if(cbCategoria.SelectedIndex < 0)
-            {
-                MessageBox.Show("Debe escoger una categoría para agregar el artículo nuevo.");
-                return true;
-            }
-            if(tbxPrecio.Text == "")
-            {
-                MessageBox.Show("Debe completar el precio del artículo para agregar un nuevo artículo");
-                return true;
-            }
-            if (!(soloNumeros(tbxPrecio.Text)))
-            {
-                MessageBox.Show("Solo se admiten números en precio.");
+                MessageBox.Show("Asegúrese de completar correctamente los campos obligatorios.");
                 return true;
             }
             return false;
-        }
-        private bool soloNumeros(string cadena)
-        {
-            decimal numero = 0;
-            bool canConvert = decimal.TryParse(cadena, out numero);
-            if(canConvert) return true;
-            else return false;
         }
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
-                if(articulo == null)
+                if (articulo == null)
                 {
                     articulo = new Articulo();
                 }
@@ -109,10 +77,6 @@ namespace presentacion
 
                 Close();
             }
-            catch (System.Data.SqlClient.SqlException)
-            {
-                MessageBox.Show("Error en la longitud de los datos ingresados: La 'Descripción' puede contener hasta 150 caracteres y 'Código' y 'Nombre' hasta 50 caracteres.");
-            }
             catch (System.IO.IOException)
             {
                 MessageBox.Show("El archivo seleccionado ya existe.");
@@ -138,6 +102,18 @@ namespace presentacion
                 cbCategoria.ValueMember = "Id";
                 cbCategoria.DisplayMember = "Descripcion";
                 cbCategoria.SelectedItem = null;
+                codigoEP.SetIconAlignment(tbxCodigo, ErrorIconAlignment.MiddleRight);
+                codigoEP.SetIconPadding(tbxCodigo, 2);
+                nombreEP.SetIconAlignment(tbxNombre, ErrorIconAlignment.MiddleRight);
+                nombreEP.SetIconPadding(tbxNombre, 2);
+                descripcionEP.SetIconAlignment(tbxDescripcion, ErrorIconAlignment.TopRight);
+                descripcionEP.SetIconPadding(tbxDescripcion, 2);
+                marcaEP.SetIconAlignment(cbMarca, ErrorIconAlignment.MiddleRight);
+                marcaEP.SetIconPadding(cbMarca, 2);
+                categoriaEP.SetIconAlignment(cbCategoria, ErrorIconAlignment.MiddleRight);
+                categoriaEP.SetIconPadding (cbCategoria, 2);
+                precioEP.SetIconAlignment(tbxPrecio, ErrorIconAlignment.MiddleRight);
+                precioEP.SetIconPadding(tbxPrecio, 2);
 
                 if(articulo != null)
                 {
@@ -185,5 +161,114 @@ namespace presentacion
                 cargarImagen(archivo.FileName);
             }
         }
+        //Eventos para la validación en el form:
+        private void tbxCodigo_Validated(object sender, EventArgs e)
+        {
+            if (codigoValido())
+            {
+                codigoEP.SetError(this.tbxCodigo, String.Empty);
+                if (!codigoExtension())
+                    codigoEP.SetError(this.tbxCodigo, "El código solo acepta hasta 50 caracteres.");
+            }
+            else
+                codigoEP.SetError(this.tbxCodigo, "El campo Código es obligatorio.");
+        }
+
+        private void tbxNombre_Validated(object sender, EventArgs e)
+        {
+            if (nombreValido())
+            {
+                nombreEP.SetError(this.tbxNombre, String.Empty);
+                if (!nombreExtension())
+                    nombreEP.SetError(this.tbxNombre, "El nombre solo acepta hasta 50 caracteres.");
+            }
+            else
+                nombreEP.SetError(this.tbxNombre, "El campo Nombre es obligatorio.");
+        }
+
+        private void cbMarca_Validated(object sender, EventArgs e)
+        {
+            if (!marcaValida())
+                marcaEP.SetError(this.cbMarca, "Debe seleccionar una marca.");
+            else
+                marcaEP.SetError(this.cbMarca, string.Empty);
+        }
+
+        private void cbCategoria_Validated(object sender, EventArgs e)
+        {
+            if (!categoriaValida())
+                categoriaEP.SetError(this.cbCategoria, "Debe seleccionar una categoría.");
+            else
+                categoriaEP.SetError(this.cbCategoria, string.Empty);
+        }
+
+        private void tbxPrecio_Validated(object sender, EventArgs e)
+        {
+            if (precioValido())
+            {
+                precioEP.SetError(this.tbxPrecio, string.Empty);
+                if (!soloNumeros(tbxPrecio.Text))
+                    precioEP.SetError(this.tbxPrecio, "Este cammpo solo admite números.");
+            }
+            else
+                precioEP.SetError(this.tbxPrecio, "El campo Precio es obligatorio.");
+        }
+        private void tbxDescripcion_Validated(object sender, EventArgs e)
+        {
+            if (!descripcionExtension())
+                descripcionEP.SetError(this.tbxDescripcion, "El campo Descripción solo admite hasta 150 caracteres");
+            else
+                descripcionEP.SetError(this.tbxDescripcion, string.Empty);
+        }
+        //Métodos para la validación del alta:
+        private bool codigoValido()
+        {
+            if (tbxCodigo.Text.Length > 0) { return true; }
+            return false;
+        }
+        private bool codigoExtension()
+        {
+            if (tbxCodigo.Text.Length < 51) { return true; }
+            return false;
+        }
+        private bool nombreExtension()
+        {
+            if (tbxNombre.Text.Length < 51) { return true; }
+            return false;
+        }
+        private bool nombreValido()
+        {
+            if (tbxNombre.Text.Length > 0) { return true; }
+            return false;
+        }
+        private bool descripcionExtension()
+        {
+            if(tbxDescripcion.Text.Length < 151) { return true; }
+            return false;
+        }
+        private bool marcaValida()
+        {
+            if (cbMarca.SelectedItem != null) { return true; }
+            return false;
+        }
+        private bool categoriaValida()
+        {
+            if (cbCategoria.SelectedItem != null) { return true; }
+            return false;
+        }
+        private bool precioValido()
+        {
+            if (tbxPrecio.Text.Length > 0) { return true; }
+            return false;
+        }
+        private bool soloNumeros(string cadena)
+        {
+            decimal numero = 0;
+            bool canConvert = decimal.TryParse(cadena, out numero);
+            if (canConvert) return true;
+            else return false;
+        }
+
+        
     }
 }

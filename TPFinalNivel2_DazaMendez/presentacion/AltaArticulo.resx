@@ -120,15 +120,33 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnImagenLocal.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxEAAAsRAX9kX5EAAAGjSURBVDhPY6iqqmpJSEiYRw3c1NQUywBi/P//n4EaOCYm
-        pgpuYFZW1pSgoKA15OCysrIODANDQkJW/f37l5EY/PDhQ1mQvuzs7MkfPnzgA+nFMDA0NBQsSAyOi4tb
-        cO/ePYU9e/Y4NTY21sL04jXwwoULei9fvhRFFoPh5OTk2efPn9dfs2ZNUHt7ezlBA48cOWLl5eW1BYQ/
-        fvzICxOH4VevXonk5+f319TUNH379o0Dr4Hbt293B7JXfv36lfPs2bOGAQEB675//84OM+zo0aOWf/78
-        YYLxQRingWvXrg0ECi76+fMnK0zxvn37HKKiopaADFm1alWIh4fHNhD/x48fbDA1WA2UkZF5lJaWNuP3
-        79/MMIUwDAorT0/PrUlJSXNABoMiA+RyWHBgNdDR0XEvzAB0vGnTJp/4+Pj5yF49d+6cAciSZ8+eSeD0
-        MkwxMgaFKciL2Fx+584dJVdX1502NjaHQHwUA7El7N27dzuHhYWtAEUKuhwMP336VNLY2Pg0hoGZmZlT
-        sWUrYjDWrEcNDDYQaLoLkAFKLhTj+vp6AwBa/+1GrS/FpwAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EAAACxABrSO9dQAAAaNJREFUOE9jqKqqaklISJhHDdzU1BTLAGL8//+fgRo4JiamCm5gVlbWlKCgoDXk
+        4LKysg4MA0NCQlb9/fuXkRj88OFDWZC+7OzsyR8+fOAD6cUwMDQ0FCxIDI6Li1tw7949hT179jg1NjbW
+        wvTiNfDChQt6L1++FEUWg+Hk5OTZ58+f11+zZk1Qe3t7OUEDjxw5YuXl5bUFhD9+/MgLE4fhV69eieTn
+        5/fX1NQ0ffv2jQOvgdu3b3cHsld+/fqV8+zZs4YBAQHrvn//zg4z7OjRo5Z//vxhgvFBGKeBa9euDQQK
+        Lvr58ycrTPG+ffscoqKiloAMWbVqVYiHh8c2EP/Hjx9sMDVYDZSRkXmUlpY24/fv38wwhTAMCitPT8+t
+        SUlJc0AGgyID5HJYcGA10NHRcS/MAHS8adMmn/j4+PnIXj137pwByJJnz55J4PQyTDEyBoUpyIvYXH7n
+        zh0lV1fXnTY2NodAfBQDsSXs3bt3O4eFha0ARQq6HAw/ffpU0tjY+DSGgZmZmVOxZStiMNasRw0MNhBo
+        uguQAUouFOP6+noDAFr/7UatL8WnAAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="codigoEP.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="nombreEP.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>146, 17</value>
+  </metadata>
+  <metadata name="marcaEP.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>275, 17</value>
+  </metadata>
+  <metadata name="categoriaEP.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>404, 17</value>
+  </metadata>
+  <metadata name="precioEP.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>533, 17</value>
+  </metadata>
+  <metadata name="descripcionEP.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>633, 17</value>
+  </metadata>
 </root>

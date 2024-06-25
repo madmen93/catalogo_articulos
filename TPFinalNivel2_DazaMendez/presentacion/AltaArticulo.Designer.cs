@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAltaArticulo));
             this.lbCodigo = new System.Windows.Forms.Label();
             this.tbxCodigo = new System.Windows.Forms.TextBox();
@@ -47,7 +48,19 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnImagenLocal = new System.Windows.Forms.Button();
+            this.codigoEP = new System.Windows.Forms.ErrorProvider(this.components);
+            this.nombreEP = new System.Windows.Forms.ErrorProvider(this.components);
+            this.marcaEP = new System.Windows.Forms.ErrorProvider(this.components);
+            this.categoriaEP = new System.Windows.Forms.ErrorProvider(this.components);
+            this.precioEP = new System.Windows.Forms.ErrorProvider(this.components);
+            this.descripcionEP = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbImg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.codigoEP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nombreEP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marcaEP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.categoriaEP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.precioEP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.descripcionEP)).BeginInit();
             this.SuspendLayout();
             // 
             // lbCodigo
@@ -66,6 +79,7 @@
             this.tbxCodigo.Name = "tbxCodigo";
             this.tbxCodigo.Size = new System.Drawing.Size(288, 20);
             this.tbxCodigo.TabIndex = 1;
+            this.tbxCodigo.Validated += new System.EventHandler(this.tbxCodigo_Validated);
             // 
             // lbNombre
             // 
@@ -83,6 +97,7 @@
             this.tbxNombre.Name = "tbxNombre";
             this.tbxNombre.Size = new System.Drawing.Size(288, 20);
             this.tbxNombre.TabIndex = 3;
+            this.tbxNombre.Validated += new System.EventHandler(this.tbxNombre_Validated);
             // 
             // lbDescripcion
             // 
@@ -102,6 +117,7 @@
             this.tbxDescripcion.Name = "tbxDescripcion";
             this.tbxDescripcion.Size = new System.Drawing.Size(288, 100);
             this.tbxDescripcion.TabIndex = 5;
+            this.tbxDescripcion.Validated += new System.EventHandler(this.tbxDescripcion_Validated);
             // 
             // lbMarca
             // 
@@ -121,6 +137,7 @@
             this.cbMarca.Name = "cbMarca";
             this.cbMarca.Size = new System.Drawing.Size(183, 21);
             this.cbMarca.TabIndex = 7;
+            this.cbMarca.Validated += new System.EventHandler(this.cbMarca_Validated);
             // 
             // lbCategoria
             // 
@@ -140,6 +157,7 @@
             this.cbCategoria.Name = "cbCategoria";
             this.cbCategoria.Size = new System.Drawing.Size(183, 21);
             this.cbCategoria.TabIndex = 9;
+            this.cbCategoria.Validated += new System.EventHandler(this.cbCategoria_Validated);
             // 
             // lbUrlImagen
             // 
@@ -175,6 +193,7 @@
             this.tbxPrecio.Name = "tbxPrecio";
             this.tbxPrecio.Size = new System.Drawing.Size(141, 20);
             this.tbxPrecio.TabIndex = 13;
+            this.tbxPrecio.Validated += new System.EventHandler(this.tbxPrecio_Validated);
             // 
             // pbImg
             // 
@@ -217,6 +236,42 @@
             this.btnImagenLocal.UseVisualStyleBackColor = true;
             this.btnImagenLocal.Click += new System.EventHandler(this.btnImagenLocal_Click);
             // 
+            // codigoEP
+            // 
+            this.codigoEP.BlinkRate = 1000;
+            this.codigoEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.codigoEP.ContainerControl = this;
+            // 
+            // nombreEP
+            // 
+            this.nombreEP.BlinkRate = 1000;
+            this.nombreEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.nombreEP.ContainerControl = this;
+            // 
+            // marcaEP
+            // 
+            this.marcaEP.BlinkRate = 1000;
+            this.marcaEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.marcaEP.ContainerControl = this;
+            // 
+            // categoriaEP
+            // 
+            this.categoriaEP.BlinkRate = 1000;
+            this.categoriaEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.categoriaEP.ContainerControl = this;
+            // 
+            // precioEP
+            // 
+            this.precioEP.BlinkRate = 1000;
+            this.precioEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.precioEP.ContainerControl = this;
+            // 
+            // descripcionEP
+            // 
+            this.descripcionEP.BlinkRate = 1000;
+            this.descripcionEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.descripcionEP.ContainerControl = this;
+            // 
             // frmAltaArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,6 +301,12 @@
             this.Text = "Nuevo Artículo";
             this.Load += new System.EventHandler(this.frmAltaArticulo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbImg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.codigoEP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nombreEP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marcaEP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.categoriaEP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.precioEP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.descripcionEP)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -271,5 +332,11 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnImagenLocal;
+        private System.Windows.Forms.ErrorProvider codigoEP;
+        private System.Windows.Forms.ErrorProvider nombreEP;
+        private System.Windows.Forms.ErrorProvider marcaEP;
+        private System.Windows.Forms.ErrorProvider categoriaEP;
+        private System.Windows.Forms.ErrorProvider precioEP;
+        private System.Windows.Forms.ErrorProvider descripcionEP;
     }
 }
