@@ -31,7 +31,7 @@ namespace presentacion
             cbCampo.Items.Add("Precio");
             cbTipo.Items.Add("Marca");
             cbTipo.Items.Add("Categoría");
-            
+
         }
         private void cargar()
         {
@@ -42,6 +42,11 @@ namespace presentacion
                 dgvArticulos.DataSource = listaArticulo;
                 ocultarColumnas();
                 cargarImagen(listaArticulo[0].UrlImagen);
+                cbTipo.SelectedItem = null;
+                cbSubtipo.SelectedItem = null;
+                cbCampo.SelectedItem = null;
+                cbCriterio.SelectedItem = null;
+                tbxFiltroAvanzado.Text = "";
 
             }
             catch (Exception ex)
@@ -160,7 +165,9 @@ namespace presentacion
 
         private void cbCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string opcion = cbCampo.SelectedItem.ToString();
+            string opcion = null;
+            if(cbCampo.SelectedItem != null)
+                opcion = cbCampo.SelectedItem.ToString();
             if(opcion == "Precio")
             {
                 cbCriterio.Items.Clear();
@@ -180,24 +187,27 @@ namespace presentacion
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-            string opcion = cbTipo.SelectedItem.ToString();
+            string opcion = null;
+            if(cbTipo.SelectedItem != null)
+                opcion = cbTipo.SelectedItem.ToString();
             try
             {
-                if (opcion == "Marca")
+                if(opcion != null)
                 {
-                    cbSubtipo.DataSource = marcaNegocio.listar();
-                    cbSubtipo.ValueMember = "Id";
-                    cbSubtipo.DisplayMember = "Descripcion";
-                    cbSubtipo.SelectedItem = null;
-                }else
-                {
-                    cbSubtipo.DataSource = categoriaNegocio.listar();
-                    cbSubtipo.ValueMember = "Id";
-                    cbSubtipo.DisplayMember = "Descripcion";
-                    cbSubtipo.SelectedItem = null;
+                    if (opcion == "Marca")
+                    {
+                        cbSubtipo.DataSource = marcaNegocio.listar();
+                        cbSubtipo.ValueMember = "Id";
+                        cbSubtipo.DisplayMember = "Descripcion";
+                        cbSubtipo.SelectedItem = null;
+                    }else
+                    {
+                        cbSubtipo.DataSource = categoriaNegocio.listar();
+                        cbSubtipo.ValueMember = "Id";
+                        cbSubtipo.DisplayMember = "Descripcion";
+                        cbSubtipo.SelectedItem = null;
+                    }
                 }
-                
-                
             }
             catch (Exception ex)
             {
@@ -205,43 +215,78 @@ namespace presentacion
                 MessageBox.Show(ex.ToString());
             }
         }
-        private bool validarFiltro()
+        private bool validarFiltroTipo()
         {
-            if(cbTipo.SelectedIndex < 0)
+            if(cbTipo.SelectedItem != null && cbSubtipo.SelectedItem != null && cbCampo.SelectedItem == null && cbCriterio.SelectedItem == null && tbxFiltroAvanzado.Text == "")
             {
-                MessageBox.Show("Por favor, escoja un tipo para filtrar.");
+                return false;
+            }else if(cbTipo.SelectedItem != null && cbSubtipo.SelectedItem == null && cbCampo.SelectedItem == null && cbCriterio.SelectedItem == null && tbxFiltroAvanzado.Text == "")
+            {
+                MessageBox.Show("Debe escoger al menos un Subtipo para realizar una búsqueda.");
                 return true;
             }
-            if(cbSubtipo.SelectedIndex < 0)
+            else
             {
-                MessageBox.Show("Por favor, escoja un subtipo para filtrar.");
                 return true;
             }
-            if(cbCampo.SelectedIndex < 0)
-            {
-                MessageBox.Show("Por favor, escoja un campo para filtrar");
-                return true;
-            }
-            if(cbCriterio.SelectedIndex < 0)
-            {
-                MessageBox.Show("Por favor, escoja un criterio para filtrar");
-                return true;
-            }
-            if(cbCampo.SelectedItem.ToString() == "Precio")
-            {
-                if (string.IsNullOrEmpty(tbxFiltroAvanzado.Text))
-                {
-                    MessageBox.Show("Debe completar el criterio del precio para filtrar.");
-                    return true;
-                }
-                if (!(soloNumeros(tbxFiltroAvanzado.Text)))
-                {
-                    MessageBox.Show("Solo se admiten números para este criterio.");
-                    return true;
-                }
-            }
-            return false;
         }
+        private bool validarFiltroCampo()
+        {
+            if(cbTipo.SelectedItem == null && cbSubtipo.SelectedItem == null && cbCampo.SelectedItem != null && cbCriterio.SelectedItem != null /*&& tbxFiltroAvanzado.Text != ""*/)
+            {
+                if (cbCampo.SelectedItem.ToString() == "Precio")
+                {
+                    if (validarPrecio())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }else if(cbTipo.SelectedItem == null && cbSubtipo.SelectedItem == null && cbCampo.SelectedItem != null && cbCriterio.SelectedItem == null)
+            {
+                MessageBox.Show("Debe escoger al menos el Criterio para realizar la búsqueda.");
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        private bool validarFiltroCompleto()
+        {
+            if(cbTipo.SelectedItem != null && cbSubtipo.SelectedItem != null && cbCampo.SelectedItem != null && cbCriterio.SelectedItem != null)
+            {
+                if (cbCampo.SelectedItem.ToString() == "Precio")
+                {
+                    if (validarPrecio())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }else if (cbTipo.SelectedItem == null && cbSubtipo.SelectedItem == null && cbCampo.SelectedItem == null && cbCriterio.SelectedItem == null)
+            {
+                MessageBox.Show("Asegúrese de completar correctamente el filtro para continuar con la búsqueda.");
+                return true;
+            }
+            return true;
+        }
+        private bool validarPrecio()
+        {
+            if (string.IsNullOrEmpty(tbxFiltroAvanzado.Text))
+            {
+               MessageBox.Show("Debe completar el criterio del precio para filtrar.");
+               return true;
+            }
+            if (!(soloNumeros(tbxFiltroAvanzado.Text)))
+            {
+               MessageBox.Show("Solo se admiten números para este criterio.");
+               return true;
+            }
+            else { return false; }
+                
+        }
+     
         private bool soloNumeros(string cadena)
         {
             decimal numero = 0;
@@ -255,19 +300,38 @@ namespace presentacion
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
-                if (validarFiltro())
-                    return;
+                string tipo = null;
+                string subtipo = null;
+                string campo = null;
+                string criterio = null;
+                string filtro = null;
 
-                string tipo = cbTipo.SelectedItem.ToString();
-                string subtipo = cbSubtipo.SelectedItem.ToString();
-                string campo = cbCampo.SelectedItem.ToString();
-                string criterio = cbCriterio.SelectedItem.ToString();
-                string filtro = tbxFiltroAvanzado.Text;
-                dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro, tipo, subtipo);
+                if (!validarFiltroTipo())
+                {
+                    tipo = cbTipo.SelectedItem.ToString();
+                    subtipo = cbSubtipo.SelectedItem.ToString();
+                    dgvArticulos.DataSource = negocio.filtrarTipoSubtipo(tipo, subtipo);
+                    return;
+                }else if (!validarFiltroCampo())
+                {
+                    campo = cbCampo.SelectedItem.ToString();
+                    criterio = cbCriterio.SelectedItem.ToString();
+                    filtro = tbxFiltroAvanzado.Text;
+                    dgvArticulos.DataSource = negocio.filtrarCampoCriterio(campo, criterio, filtro);
+                    return;
+                }else if (!validarFiltroCompleto())
+                {
+                    tipo = cbTipo.SelectedItem.ToString();
+                    subtipo = cbSubtipo.SelectedItem.ToString();
+                    campo = cbCampo.SelectedItem.ToString();
+                    criterio = cbCriterio.SelectedItem.ToString();
+                    filtro = tbxFiltroAvanzado.Text;
+                    dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro, tipo, subtipo);
+                    return;
+                }
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
         }
